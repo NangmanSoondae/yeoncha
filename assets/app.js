@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js';
-import { renderCard, canvasToBlob } from './card.js';
-import { buildIcs } from './ics.js';
-import * as D from './dates.js';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301710';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301710';
+import { renderCard, canvasToBlob } from './card.js?v=202609301710';
+import { buildIcs } from './ics.js?v=202609301710';
+import * as D from './dates.js?v=202609301710';
 
 const SITE_URL = 'https://nangmansoondae.github.io/yeoncha/';
 const MAX_BUDGET = 30;

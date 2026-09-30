@@ -1,5 +1,5 @@
 // 결과를 iCalendar(.ics) 파일로 — 구글·애플·아웃룩 캘린더에서 가져오기 가능
-import { addDays } from './dates.js';
+import { addDays } from './dates.js?v=202609301710';
 
 const enc = new TextEncoder();
 

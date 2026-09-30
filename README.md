@@ -27,6 +27,9 @@ python -m http.server 8123   # http://localhost:8123
 npm test                     # node --test
 ```
 
+## 배포 전
+GitHub Pages는 정적 파일을 10분간 캐시합니다. 파일을 바꿨으면 `node tools/bump-version.mjs`로 `?v=` 버전을 올린 뒤 커밋하세요(HTML과 JS 버전이 어긋나지 않게).
+
 ## 공휴일 데이터 갱신
 임시공휴일이 지정되면 `assets/holidays.js`에 `type: 'temporary'`로 추가하고 `HOLIDAY_META.updated`를 바꿉니다.
 
