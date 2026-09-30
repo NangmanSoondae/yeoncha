@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301931';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301931';
-import { renderCard, canvasToBlob } from './card.js?v=202609301931';
-import { buildIcs } from './ics.js?v=202609301931';
-import * as D from './dates.js?v=202609301931';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301933';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301933';
+import { renderCard, canvasToBlob } from './card.js?v=202609301933';
+import { buildIcs } from './ics.js?v=202609301933';
+import * as D from './dates.js?v=202609301933';
 
 const SITE_URL = 'https://yeoncha.nangsoon.com/';
 const MAX_BUDGET = 30;
@@ -557,6 +557,11 @@ function bind() {
     else dlg.removeAttribute('open');
   });
   window.addEventListener('hashchange', () => {
+    if (location.hash === '#toggle-goatcounter') {
+      handleStatsToggle();
+      render();
+      return;
+    }
     readUrl();
     render();
   });

@@ -1,5 +1,5 @@
 // 공유용 결과 카드(1080×1350 PNG) — 캔버스로 직접 그림, 외부 라이브러리 없음
-import { parse, DOW } from './dates.js?v=202609301931';
+import { parse, DOW } from './dates.js?v=202609301933';
 
 const W = 1080;
 const H = 1350;
