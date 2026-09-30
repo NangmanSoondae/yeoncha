@@ -31,6 +31,10 @@ npm test                     # node --test
 ## 배포 전
 브라우저 캐시로 HTML과 JS 버전이 어긋나지 않게, 파일을 바꿨으면 `node tools/bump-version.mjs`로 `?v=` 버전을 올린 뒤 커밋하세요(HTML과 JS 버전이 어긋나지 않게).
 
+## 검색 등록
+- 구글 서치콘솔: `https://yeoncha.nangsoon.com/` URL 접두어 속성(nangsoon.com 도메인 속성으로 자동 인증), 사이트맵 제출 완료
+- 색인 통보: 배포 후 `node tools/indexnow.mjs` (빙·네이버 IndexNow)
+
 ## 공휴일 데이터 갱신
 임시공휴일이 지정되면 `assets/holidays.js`에 `type: 'temporary'`로 추가하고 `HOLIDAY_META.updated`를 바꿉니다.
 
