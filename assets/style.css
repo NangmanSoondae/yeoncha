@@ -92,7 +92,7 @@ details.adv[open] summary { margin-bottom: 12px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
 .chips:empty { display: none; }
 .chip { display: inline-flex; align-items: center; gap: 4px; padding: 4px 6px 4px 10px; border-radius: 999px; background: var(--surface-2); font-size: 13px; border: 1px solid var(--line); }
-.chip button { border: 0; background: transparent; cursor: pointer; font-size: 15px; line-height: 1; padding: 2px 4px; color: var(--muted); }
+.chip button { border: 0; background: transparent; cursor: pointer; font-size: 16px; line-height: 1; padding: 6px 8px; margin: -4px -2px -4px 0; color: var(--muted); }
 
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 10px 16px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; font-weight: 700; font-size: 14px; text-decoration: none; color: var(--text); }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
@@ -140,7 +140,7 @@ details.adv[open] summary { margin-bottom: 12px; }
 .dow.sun { color: var(--holiday); }
 .dow.sat { color: var(--sat); }
 .day {
-  position: relative; min-height: 38px; border-radius: 9px; border: 0; background: transparent;
+  position: relative; min-height: 40px; border-radius: 9px; border: 0; background: transparent;
   font-size: 13px; font-weight: 600; display: grid; place-items: center; padding: 0; cursor: default; color: var(--text);
 }
 .day.pad { visibility: hidden; }
@@ -184,3 +184,9 @@ details.adv summary span { font-weight: 600; color: var(--accent-strong); margin
   .card { padding: 16px; margin: 12px 0; }
   .field { margin-bottom: 14px; }
 }
+
+.img-dialog { border: 0; border-radius: 18px; padding: 16px; max-width: min(420px, calc(100% - 32px)); background: var(--surface); color: var(--text); box-shadow: var(--shadow); text-align: center; }
+.img-dialog::backdrop { background: rgba(0, 0, 0, .55); }
+.img-dialog p { margin: 0 0 10px; font-weight: 700; font-size: 14px; }
+.img-dialog img { width: 100%; height: auto; border-radius: 12px; display: block; margin-bottom: 12px; -webkit-touch-callout: default; }
+.doc code { background: var(--surface-2); padding: 1px 5px; border-radius: 6px; }

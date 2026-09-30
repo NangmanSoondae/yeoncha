@@ -329,3 +329,11 @@ test('성능: 460일 · 예산 25/30에서 전략별 50ms 이내', () => {
     }
   }
 });
+
+test('topDeals: 주말에 걸린 공휴일만 있는 덩어리는 딜이 아님 (5인 미만 2027 노동절 토요일)', () => {
+  const H = { '2027-05-01': { name: '노동절', type: 'labor' }, '2027-05-03': { name: '대체공휴일(노동절)', type: 'substitute' } };
+  const small = buildCalendar({ start: '2027-04-26', end: '2027-05-09', holidays: H, workType: 'small' });
+  assert.equal(topDeals({ days: small }).length, 0, '5/1(토)~5/2(일)는 평범한 주말');
+  const std = buildCalendar({ start: '2027-04-26', end: '2027-05-09', holidays: H });
+  assert.ok(topDeals({ days: std }).some((b) => b.start === '2027-04-30' && b.end === '2027-05-03'), '대체공휴일이 있으면 딜');
+});

@@ -370,7 +370,7 @@ export function summarizeLeave({ days, leaveDates = [] } = {}) {
 
 /**
  * 연차 1~maxLeave일로 만들 수 있는 구간을 효율(length/leaveCount) → length 내림차순으로 돌려준다.
- * - 공휴일·회사 지정 휴무가 하나도 없는 구간(평범한 주말 + 연차)은 "딜"이 아니므로 제외
+ * - 평일에 걸린 공휴일·회사 지정 휴무가 없는 구간(평범한 주말 + 연차)은 "딜"이 아니므로 제외
  * - 같은 휴일 덩어리(공휴일/지정휴무를 포함한 연속 휴무 묶음) 조합을 공유하는 구간은 효율 최고 1개만 남김
  * @returns {Break[]}
  */
@@ -392,7 +392,8 @@ export function topDeals({ days, maxLeave = 5, limit = 12, blocked = [] } = {}) 
     let j = i;
     let special = false;
     while (j < n && days[j].off) {
-      if (days[j].reason === 'holiday' || days[j].reason === 'extra') special = true;
+      // 평일에 걸린 공휴일·지정휴무만 "덤"이 된다(토요일 공휴일 + 대체공휴일 없음 = 평범한 주말)
+      if ((days[j].reason === 'holiday' || days[j].reason === 'extra') && days[j].dow !== 0 && days[j].dow !== 6) special = true;
       j++;
     }
     if (special) for (let t = i; t < j; t++) cluster[t] = i;

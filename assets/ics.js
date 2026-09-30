@@ -37,7 +37,7 @@ export function buildIcs(breaks, { url, md }) {
     const leaves = b.leaveDates.map(md).join(', ');
     lines.push(
       'BEGIN:VEVENT',
-      `UID:${ymd(b.start)}-${ymd(b.end)}-${b.leaveCount}@yeoncha`,
+      `UID:${ymd(b.start)}-${ymd(b.end)}-${b.leaveCount}@nangmansoondae.github.io`,
       `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${ymd(b.start)}`,
       `DTEND;VALUE=DATE:${ymd(addDays(b.end, 1))}`,

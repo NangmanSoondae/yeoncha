@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://cdn.jsdelivr.net; font-src https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self'; base-uri 'self'; form-action 'none'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>연차각 | 남은 연차로 최장 연휴 계산 – 2026·2027 황금연휴</title>
 <meta name="description" content="남은 연차 일수만 넣으면 2026 남은 기간과 2027 전체에서 가장 오래 쉬는 연차 조합을 찾아드려요. 5인 미만·회사 휴무일도 지원, 입력값은 저장하지 않아요.">
 <link rel="canonical" href="https://nangmansoondae.github.io/yeoncha/">
@@ -17,13 +19,13 @@
 <meta name="theme-color" content="#0f8a5f">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" integrity="sha384-GIdEBaqGN9mNkDkMkzMHW8EKUqtpPIe/sLj1X7DIrnc9uPtLROJgmuDlh+3rBw0j" crossorigin="anonymous">
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebApplication","name":"연차각","url":"https://nangmansoondae.github.io/yeoncha/","applicationCategory":"UtilitiesApplication","operatingSystem":"All","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"남은 연차 일수로 공휴일·주말과 이어 붙여 가장 길게 쉬는 연차 조합을 찾아주는 무료 도구"}
 </script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "연차 3일로 최대 며칠 쉴 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "달력에 따라 달라요. 2026년 10월은 개천절 대체공휴일(10/5 월)과 한글날(10/9 금) 사이 평일 3일(10/6~10/8)에 연차를 쓰면 10월 3일부터 11일까지 9일을 쉴 수 있어요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 바로 찾아드려요."}}, {"@type": "Question", "name": "5인 미만 회사도 공휴일에 쉬나요?", "acceptedAnswer": {"@type": "Answer", "text": "공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 회사 규정을 따르기 때문에 빨간 날에도 출근할 수 있어요. 이런 경우 「공휴일에도 출근해요」를 고르면 주말과 노동절만 쉬는 날로 계산해요."}}, {"@type": "Question", "name": "노동절(5월 1일)은 공휴일인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬는 날이에요. 토·일요일과 겹치면 대체공휴일이 생겨요(2027년은 5월 3일 월요일)."}}, {"@type": "Question", "name": "대체공휴일은 언제 생기나요?", "acceptedAnswer": {"@type": "Answer", "text": "설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토요일이나 일요일과 겹치면 다음 첫 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요."}}, {"@type": "Question", "name": "2027년에는 연휴가 몇 번 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "2027년은 주5일 근무 기준으로 쉬는 날이 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일이 월요일에 많이 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요."}}, {"@type": "Question", "name": "입력한 정보는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "어디에도 저장되지 않아요. 모든 계산은 내 브라우저 안에서 이뤄지고 서버로 보내지 않아요. 공유 링크를 만들면 입력값이 링크 주소에만 담겨요."}}, {"@type": "Question", "name": "임시공휴일이 새로 생기면요?", "acceptedAnswer": {"@type": "Answer", "text": "임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 데이터에 바로 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 회사가 따로 쉬는 날은 「회사 휴무일 추가」로 넣을 수 있어요."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "연차 3일로 최대 며칠 쉴 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "달력에 따라 달라요. 2027년 설에는 연휴 뒤 2/10~12(수~금)에 연차 3일을 쓰면 2월 6일부터 14일까지 9일을 쉴 수 있어요. 2027년 추석은 9/13(월)·9/17(금) 연차 2일만으로 9월 11일부터 19일까지 9일이에요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 찾아드려요."}}, {"@type": "Question", "name": "5인 미만 회사도 공휴일에 쉬나요?", "acceptedAnswer": {"@type": "Answer", "text": "공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 법적 의무가 없어 취업규칙·근로계약에 따라 달라요. 빨간 날에도 출근한다면 「회사 조건 → 공휴일에도 출근해요」를 고르세요. 주말과 노동절만 쉬는 날로 계산해요."}}, {"@type": "Question", "name": "노동절(5월 1일)은 공휴일인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬고, 다른 날로 바꿀 수 없어요. 토·일요일과 겹치면 대체공휴일이 생기는데(2027년은 5월 3일 월요일), 이 대체공휴일은 5인 미만 사업장에서는 쉬지 않을 수 있어요."}}, {"@type": "Question", "name": "대체공휴일은 언제 생기나요?", "acceptedAnswer": {"@type": "Answer", "text": "설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토·일요일이나 다른 공휴일과 겹치면 그다음 첫 번째 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요."}}, {"@type": "Question", "name": "2027년에는 연휴가 몇 번 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "2027년 월력요항 기준으로 주5일 근무자가 쉬는 날은 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일 7개 중 6개가 월요일에 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요."}}, {"@type": "Question", "name": "「짧은 연휴 여러 번」과 「긴 휴가 한 번」 중 뭐가 더 많이 쉬나요?", "acceptedAnswer": {"@type": "Answer", "text": "1년 동안 쉬는 날의 총합은 연차를 어디에 써도 같아요. 전략은 그 연차를 어떻게 묶을지 고르는 거예요. 「짧은 연휴 여러 번」은 금요일·월요일에 연차를 붙여 3~4일 연휴를 자주 만들고, 「긴 휴가 한 번」은 공휴일 사이를 메워 7일 이상 휴가를 우선 만들어요."}}, {"@type": "Question", "name": "입력한 정보는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "서버에 저장하지 않아요. 계산은 내 브라우저 안에서 하고, 입력값은 주소 끝(# 뒤)에만 담겨요. 이 부분은 서버로 전송되지 않지만 브라우저 방문 기록에는 남을 수 있어요."}}, {"@type": "Question", "name": "임시공휴일이 새로 생기면요?", "acceptedAnswer": {"@type": "Answer", "text": "임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 그 전에는 「회사 조건 → 회사 휴무일 추가」로 직접 넣을 수 있어요."}}]}
 </script>
 </head>
 <body>
@@ -83,8 +85,9 @@
       <div class="seg" role="group" aria-labelledby="lbl-strategy" id="strategy">
         <button type="button" data-v="long">긴 휴가 한 번</button>
         <button type="button" data-v="balanced">적당히 골고루</button>
-        <button type="button" data-v="max">쉬는 날 최대로</button>
+        <button type="button" data-v="max">짧은 연휴 여러 번</button>
       </div>
+      <p class="field-help" id="strategy-help"></p>
     </div>
     <p class="big" id="headline"></p>
     <p class="summary-sub" id="subline"></p>
@@ -128,31 +131,35 @@
     <h2 id="faq-title">자주 묻는 질문</h2>
     <details>
       <summary>연차 3일로 최대 며칠 쉴 수 있나요?</summary>
-      <p>달력에 따라 달라요. 2026년 10월은 개천절 대체공휴일(10/5 월)과 한글날(10/9 금) 사이 평일 3일(10/6~10/8)에 연차를 쓰면 10월 3일부터 11일까지 9일을 쉴 수 있어요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 바로 찾아드려요.</p>
+      <p>달력에 따라 달라요. 2027년 설에는 연휴 뒤 2/10~12(수~금)에 연차 3일을 쓰면 2월 6일부터 14일까지 9일을 쉴 수 있어요. 2027년 추석은 9/13(월)·9/17(금) 연차 2일만으로 9월 11일부터 19일까지 9일이에요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 찾아드려요.</p>
     </details>
     <details>
       <summary>5인 미만 회사도 공휴일에 쉬나요?</summary>
-      <p>공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 회사 규정을 따르기 때문에 빨간 날에도 출근할 수 있어요. 이런 경우 「공휴일에도 출근해요」를 고르면 주말과 노동절만 쉬는 날로 계산해요.</p>
+      <p>공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 법적 의무가 없어 취업규칙·근로계약에 따라 달라요. 빨간 날에도 출근한다면 「회사 조건 → 공휴일에도 출근해요」를 고르세요. 주말과 노동절만 쉬는 날로 계산해요.</p>
     </details>
     <details>
       <summary>노동절(5월 1일)은 공휴일인가요?</summary>
-      <p>2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬는 날이에요. 토·일요일과 겹치면 대체공휴일이 생겨요(2027년은 5월 3일 월요일).</p>
+      <p>2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬고, 다른 날로 바꿀 수 없어요. 토·일요일과 겹치면 대체공휴일이 생기는데(2027년은 5월 3일 월요일), 이 대체공휴일은 5인 미만 사업장에서는 쉬지 않을 수 있어요.</p>
     </details>
     <details>
       <summary>대체공휴일은 언제 생기나요?</summary>
-      <p>설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토요일이나 일요일과 겹치면 다음 첫 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요.</p>
+      <p>설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토·일요일이나 다른 공휴일과 겹치면 그다음 첫 번째 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요.</p>
     </details>
     <details>
       <summary>2027년에는 연휴가 몇 번 있나요?</summary>
-      <p>2027년은 주5일 근무 기준으로 쉬는 날이 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일이 월요일에 많이 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요.</p>
+      <p>2027년 월력요항 기준으로 주5일 근무자가 쉬는 날은 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일 7개 중 6개가 월요일에 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요.</p>
+    </details>
+    <details>
+      <summary>「짧은 연휴 여러 번」과 「긴 휴가 한 번」 중 뭐가 더 많이 쉬나요?</summary>
+      <p>1년 동안 쉬는 날의 총합은 연차를 어디에 써도 같아요. 전략은 그 연차를 어떻게 묶을지 고르는 거예요. 「짧은 연휴 여러 번」은 금요일·월요일에 연차를 붙여 3~4일 연휴를 자주 만들고, 「긴 휴가 한 번」은 공휴일 사이를 메워 7일 이상 휴가를 우선 만들어요.</p>
     </details>
     <details>
       <summary>입력한 정보는 어디에 저장되나요?</summary>
-      <p>어디에도 저장되지 않아요. 모든 계산은 내 브라우저 안에서 이뤄지고 서버로 보내지 않아요. 공유 링크를 만들면 입력값이 링크 주소에만 담겨요.</p>
+      <p>서버에 저장하지 않아요. 계산은 내 브라우저 안에서 하고, 입력값은 주소 끝(# 뒤)에만 담겨요. 이 부분은 서버로 전송되지 않지만 브라우저 방문 기록에는 남을 수 있어요.</p>
     </details>
     <details>
       <summary>임시공휴일이 새로 생기면요?</summary>
-      <p>임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 데이터에 바로 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 회사가 따로 쉬는 날은 「회사 휴무일 추가」로 넣을 수 있어요.</p>
+      <p>임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 그 전에는 「회사 조건 → 회사 휴무일 추가」로 직접 넣을 수 있어요.</p>
     </details>
   </section>
 </main>
@@ -166,6 +173,11 @@
   </div>
 </footer>
 
+<dialog class="img-dialog" id="img-dialog" aria-label="결과 카드 이미지">
+  <p>이미지를 길게 눌러 사진에 저장하세요</p>
+  <img id="img-preview" alt="연차 계획 결과 카드">
+  <button type="button" class="btn" id="img-close">닫기</button>
+</dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script type="module" src="assets/app.js"></script>
 </body>
