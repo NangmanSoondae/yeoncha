@@ -1,22 +1,22 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301742';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301742';
-import { renderCard, canvasToBlob } from './card.js?v=202609301742';
-import { buildIcs } from './ics.js?v=202609301742';
-import * as D from './dates.js?v=202609301742';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301748';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301748';
+import { renderCard, canvasToBlob } from './card.js?v=202609301748';
+import { buildIcs } from './ics.js?v=202609301748';
+import * as D from './dates.js?v=202609301748';
 
 const SITE_URL = 'https://nangmansoondae.github.io/yeoncha/';
 const MAX_BUDGET = 30;
 const TAIL_DAYS = 10; // 기간 끝 뒤 휴일(예: 12/25~1/3)까지 연휴로 이어 계산
 const $ = (id) => document.getElementById(id);
 
-// ---------- 분석(쿠키 없는 도구 연결 전까지는 아무 일도 하지 않음) ----------
-function track(name) {
+// ---------- 분석: GoatCounter(쿠키 없음). 스크립트가 늦게 뜨면 잠시 기다렸다 보냄 ----------
+function track(name, tries = 0) {
   try {
-    if (window.goatcounter && window.goatcounter.count) {
-      window.goatcounter.count({ path: `event/${name}`, title: name, event: true });
-    }
+    const gc = window.goatcounter;
+    if (gc && gc.count) gc.count({ path: `event/${name}`, title: name, event: true });
+    else if (tries < 10) setTimeout(() => track(name, tries + 1), 500);
   } catch {
-    /* 분석 실패는 무시 */
+    /* 분석 실패는 무시(광고 차단기 등) */
   }
 }
 
