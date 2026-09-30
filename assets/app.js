@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301754';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301754';
-import { renderCard, canvasToBlob } from './card.js?v=202609301754';
-import { buildIcs } from './ics.js?v=202609301754';
-import * as D from './dates.js?v=202609301754';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301931';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301931';
+import { renderCard, canvasToBlob } from './card.js?v=202609301931';
+import { buildIcs } from './ics.js?v=202609301931';
+import * as D from './dates.js?v=202609301931';
 
 const SITE_URL = 'https://yeoncha.nangsoon.com/';
 const MAX_BUDGET = 30;
@@ -570,7 +570,24 @@ function trackLanding() {
   if (ref) track(`landing-ref-${ref}`);
 }
 
+// 운영자 방문 제외: 주소 끝에 #toggle-goatcounter 를 붙여 열면 이 브라우저의 통계 집계를 끄고/켠다
+// (GoatCounter count.js 가 localStorage 'skipgc' = 't' 이면 집계하지 않음)
+function handleStatsToggle() {
+  if (location.hash !== '#toggle-goatcounter') return;
+  let excluded = false;
+  try {
+    excluded = localStorage.getItem('skipgc') !== 't';
+    if (excluded) localStorage.setItem('skipgc', 't');
+    else localStorage.removeItem('skipgc');
+  } catch {
+    /* 저장소를 못 쓰는 브라우저 */
+  }
+  history.replaceState(null, '', location.pathname);
+  setTimeout(() => toast(excluded ? '이 브라우저의 방문은 이제 통계에서 빠져요' : '이 브라우저의 방문을 다시 통계에 넣어요'), 300);
+}
+
 function init() {
+  handleStatsToggle();
   trackLanding();
   readUrl();
   const d = HOLIDAY_META.updated;
