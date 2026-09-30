@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>연차각 | 남은 연차로 최장 연휴 계산 – 2026·2027 황금연휴</title>
+<meta name="description" content="남은 연차 일수만 넣으면 2026 남은 기간과 2027 전체에서 가장 오래 쉬는 연차 조합을 찾아드려요. 5인 미만·회사 휴무일도 지원, 입력값은 저장하지 않아요.">
+<link rel="canonical" href="https://nangmansoondae.github.io/yeoncha/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="연차각">
+<meta property="og:title" content="연차 며칠이면 며칠 쉴까? 내 최장 연휴 조합 찾기 | 연차각">
+<meta property="og:description" content="남은 연차만 넣으면 최적 연휴 조합·달력·캘린더 저장까지. 로그인·개인정보 없음.">
+<meta property="og:url" content="https://nangmansoondae.github.io/yeoncha/">
+<meta property="og:image" content="https://nangmansoondae.github.io/yeoncha/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0f8a5f">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="assets/style.css">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"연차각","url":"https://nangmansoondae.github.io/yeoncha/","applicationCategory":"UtilitiesApplication","operatingSystem":"All","inLanguage":"ko","offers":{"@type":"Offer","price":"0","priceCurrency":"KRW"},"description":"남은 연차 일수로 공휴일·주말과 이어 붙여 가장 길게 쉬는 연차 조합을 찾아주는 무료 도구"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "연차 3일로 최대 며칠 쉴 수 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "달력에 따라 달라요. 2026년 10월은 개천절 대체공휴일(10/5 월)과 한글날(10/9 금) 사이 평일 3일(10/6~10/8)에 연차를 쓰면 10월 3일부터 11일까지 9일을 쉴 수 있어요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 바로 찾아드려요."}}, {"@type": "Question", "name": "5인 미만 회사도 공휴일에 쉬나요?", "acceptedAnswer": {"@type": "Answer", "text": "공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 회사 규정을 따르기 때문에 빨간 날에도 출근할 수 있어요. 이런 경우 「공휴일에도 출근해요」를 고르면 주말과 노동절만 쉬는 날로 계산해요."}}, {"@type": "Question", "name": "노동절(5월 1일)은 공휴일인가요?", "acceptedAnswer": {"@type": "Answer", "text": "2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬는 날이에요. 토·일요일과 겹치면 대체공휴일이 생겨요(2027년은 5월 3일 월요일)."}}, {"@type": "Question", "name": "대체공휴일은 언제 생기나요?", "acceptedAnswer": {"@type": "Answer", "text": "설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토요일이나 일요일과 겹치면 다음 첫 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요."}}, {"@type": "Question", "name": "2027년에는 연휴가 몇 번 있나요?", "acceptedAnswer": {"@type": "Answer", "text": "2027년은 주5일 근무 기준으로 쉬는 날이 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일이 월요일에 많이 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요."}}, {"@type": "Question", "name": "입력한 정보는 어디에 저장되나요?", "acceptedAnswer": {"@type": "Answer", "text": "어디에도 저장되지 않아요. 모든 계산은 내 브라우저 안에서 이뤄지고 서버로 보내지 않아요. 공유 링크를 만들면 입력값이 링크 주소에만 담겨요."}}, {"@type": "Question", "name": "임시공휴일이 새로 생기면요?", "acceptedAnswer": {"@type": "Answer", "text": "임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 데이터에 바로 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 회사가 따로 쉬는 날은 「회사 휴무일 추가」로 넣을 수 있어요."}}]}
+</script>
+</head>
+<body>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">연</span>연차각 <small>남은 연차로 최장 연휴 계산</small></a>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1>남은 연차, <em>제일 길게</em> 쉬는 조합 찾아드려요</h1>
+    <p>연차 일수와 근무 형태만 넣으면 주말·공휴일·대체공휴일 사이 최적 조합을 바로 계산해요.</p>
+    <p class="trust">로그인 없음 · 저장 안 함 · 무료</p>
+  </section>
+
+  <section class="card" aria-labelledby="form-title">
+    <h2 id="form-title">내 조건</h2>
+    <div class="field">
+      <span class="field-label" id="lbl-period">기간</span>
+      <div class="seg" role="group" aria-labelledby="lbl-period" id="period"></div>
+    </div>
+    <div class="field">
+      <span class="field-label" id="lbl-budget">쓸 수 있는 연차</span>
+      <div class="stepper" role="group" aria-labelledby="lbl-budget">
+        <button type="button" id="dec" aria-label="연차 1일 줄이기">−</button>
+        <output id="budget" aria-live="polite">5<span>일</span></output>
+        <button type="button" id="inc" aria-label="연차 1일 늘리기">+</button>
+      </div>
+    </div>
+    <details class="adv" id="adv">
+      <summary>회사 조건 <span id="adv-summary"></span></summary>
+    <div class="field">
+      <span class="field-label" id="lbl-work">회사 휴무 기준</span>
+      <div class="seg" role="group" aria-labelledby="lbl-work" id="work">
+        <button type="button" data-v="standard">공휴일에 쉬어요</button>
+        <button type="button" data-v="small">공휴일에도 출근해요</button>
+      </div>
+      <p class="field-help" id="work-help"></p>
+    </div>
+      <div class="field">
+        <span class="field-label">회사 휴무일 추가 <small>(창립기념일·종무식 등)</small></span>
+        <div class="inline-add">
+          <input type="date" id="extra-date" aria-label="회사 휴무일 날짜">
+          <button type="button" class="btn" id="extra-add">추가</button>
+        </div>
+        <div class="chips" id="extra-list"></div>
+        <p class="field-help">연차 못 쓰는 날(바쁜 시기)은 아래 달력에서 「못 쉬는 날 지정」을 눌러 표시하세요.</p>
+      </div>
+    </details>
+  </section>
+
+  <section class="card summary" aria-labelledby="result-title" id="result">
+    <h2 id="result-title" class="sr-only">추천 결과</h2>
+    <div class="field strategy-field">
+      <span class="field-label" id="lbl-strategy">어떻게 쉴까요?</span>
+      <div class="seg" role="group" aria-labelledby="lbl-strategy" id="strategy">
+        <button type="button" data-v="long">긴 휴가 한 번</button>
+        <button type="button" data-v="balanced">적당히 골고루</button>
+        <button type="button" data-v="max">쉬는 날 최대로</button>
+      </div>
+    </div>
+    <p class="big" id="headline"></p>
+    <p class="summary-sub" id="subline"></p>
+    <div class="mode-note" id="manual-note" hidden>
+      <span id="manual-text">달력에서 직접 고른 연차로 계산 중이에요.</span>
+      <button type="button" class="btn small" id="reset-auto">추천으로 되돌리기</button>
+    </div>
+    <ul class="breaks" id="breaks"></ul>
+    <div class="actions">
+      <button type="button" class="btn primary" id="share">결과 공유</button>
+      <button type="button" class="btn" id="save-img">이미지 저장</button>
+      <button type="button" class="btn" id="copy-link">링크 복사</button>
+      <button type="button" class="btn" id="ics">캘린더에 추가</button>
+    </div>
+  </section>
+
+  <section class="card" aria-labelledby="deals-title">
+    <h2 id="deals-title">가성비 좋은 연휴 <small>연차 적게 쓰고 오래 쉬는 순</small></h2>
+    <ul class="deals" id="deals"></ul>
+  </section>
+
+  <section class="card" aria-labelledby="cal-title">
+    <h2 id="cal-title">달력으로 보기</h2>
+    <div class="cal-tools">
+      <span class="field-label" id="lbl-tap">날짜를 누르면</span>
+      <div class="seg" role="group" aria-labelledby="lbl-tap" id="tapmode">
+        <button type="button" data-v="leave">연차 넣기/빼기</button>
+        <button type="button" data-v="block">못 쉬는 날 지정</button>
+      </div>
+    </div>
+    <div class="legend" aria-hidden="true">
+      <span><i class="lg-leave"></i>연차</span>
+      <span><i class="lg-break"></i>쉬는 기간</span>
+      <span><i class="lg-hol"></i>공휴일</span>
+      <span><i class="lg-block"></i>못 쉬는 날</span>
+    </div>
+    <div class="months" id="months"></div>
+  </section>
+
+  <section class="card faq" aria-labelledby="faq-title" id="faq">
+    <h2 id="faq-title">자주 묻는 질문</h2>
+    <details>
+      <summary>연차 3일로 최대 며칠 쉴 수 있나요?</summary>
+      <p>달력에 따라 달라요. 2026년 10월은 개천절 대체공휴일(10/5 월)과 한글날(10/9 금) 사이 평일 3일(10/6~10/8)에 연차를 쓰면 10월 3일부터 11일까지 9일을 쉴 수 있어요. 위에 남은 연차를 넣으면 내 기간에서 가장 효율 좋은 조합을 바로 찾아드려요.</p>
+    </details>
+    <details>
+      <summary>5인 미만 회사도 공휴일에 쉬나요?</summary>
+      <p>공휴일·대체공휴일을 유급휴일로 보장하는 근로기준법 규정(제55조 제2항)은 상시 5인 이상 사업장에 적용돼요. 5인 미만 사업장은 회사 규정을 따르기 때문에 빨간 날에도 출근할 수 있어요. 이런 경우 「공휴일에도 출근해요」를 고르면 주말과 노동절만 쉬는 날로 계산해요.</p>
+    </details>
+    <details>
+      <summary>노동절(5월 1일)은 공휴일인가요?</summary>
+      <p>2026년 관공서 공휴일 규정 개정으로 노동절이 공휴일이 되어 공무원·교사도 쉬어요. 노동절은 「노동절 제정에 관한 법률」에 따른 유급휴일이라 5인 미만 사업장도 쉬는 날이에요. 토·일요일과 겹치면 대체공휴일이 생겨요(2027년은 5월 3일 월요일).</p>
+    </details>
+    <details>
+      <summary>대체공휴일은 언제 생기나요?</summary>
+      <p>설·추석 연휴는 일요일이나 다른 공휴일과 겹칠 때만 대체공휴일이 생겨요. 삼일절·노동절·어린이날·부처님오신날·제헌절·광복절·개천절·한글날·성탄절은 토요일이나 일요일과 겹치면 다음 첫 평일이 쉬는 날이 돼요. 신정과 현충일은 대체공휴일이 없어요.</p>
+    </details>
+    <details>
+      <summary>2027년에는 연휴가 몇 번 있나요?</summary>
+      <p>2027년은 주5일 근무 기준으로 쉬는 날이 119일이고, 3일 이상 이어지는 연휴가 10번 있어요. 대체공휴일이 월요일에 많이 붙어서 연차를 조금만 써도 긴 휴가를 만들기 좋은 해예요.</p>
+    </details>
+    <details>
+      <summary>입력한 정보는 어디에 저장되나요?</summary>
+      <p>어디에도 저장되지 않아요. 모든 계산은 내 브라우저 안에서 이뤄지고 서버로 보내지 않아요. 공유 링크를 만들면 입력값이 링크 주소에만 담겨요.</p>
+    </details>
+    <details>
+      <summary>임시공휴일이 새로 생기면요?</summary>
+      <p>임시공휴일은 국무회의에서 그때그때 정해져요. 발표되면 데이터에 바로 반영하고, 페이지 아래 「공휴일 데이터 기준일」을 갱신해요. 회사가 따로 쉬는 날은 「회사 휴무일 추가」로 넣을 수 있어요.</p>
+    </details>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p id="data-note"></p>
+    <p>회사마다 휴무 규정이 다를 수 있어요. 실제 연차 사용 전 회사 규정을 확인하세요.</p>
+    <p><a href="privacy.html">개인정보 처리방침</a> · <a href="https://github.com/nangmansoondae/yeoncha/issues" rel="noopener">의견 보내기</a></p>
+    <p>글꼴: <a href="https://github.com/orioncactus/pretendard" rel="noopener">Pretendard</a> (SIL OFL 1.1)</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

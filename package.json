@@ -1,0 +1,9 @@
+{
+  "name": "yeoncha",
+  "private": true,
+  "type": "module",
+  "description": "연차각 — 남은 연차로 최장 연휴 계산",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs"
+  }
+}
