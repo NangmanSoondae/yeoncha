@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301955';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301955';
-import { renderCard, canvasToBlob } from './card.js?v=202609301955';
-import { buildIcs } from './ics.js?v=202609301955';
-import * as D from './dates.js?v=202609301955';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610010852';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610010852';
+import { renderCard, canvasToBlob } from './card.js?v=202610010852';
+import { buildIcs } from './ics.js?v=202610010852';
+import * as D from './dates.js?v=202610010852';
 
 // 대표 주소는 index.html의 canonical 한 곳에서만 관리
 const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || `${location.origin}/`;
@@ -458,6 +458,14 @@ function onIcs() {
 }
 
 // ---------- 입력 ----------
+// 첫 화면은 기본값 결과라 열기만 해도 뜬다. 사용자가 입력을 바꿨을 때만 '계획 생성'으로 센다.
+let planTracked = false;
+function engaged() {
+  if (planTracked) return;
+  planTracked = true;
+  track(`plan/${state.period}/${state.strategy}`);
+}
+
 function ensureManual() {
   if (!state.manual) state.manual = view.plan.breaks.flatMap((b) => b.leaveDates);
 }
@@ -469,6 +477,7 @@ function onSeg(groupId, key, after) {
     state[key] = b.dataset.v;
     if (after) after();
     render();
+    engaged();
   });
 }
 
@@ -495,6 +504,7 @@ function bind() {
     if (n === state.budget) return;
     state.budget = n;
     render();
+    engaged();
   };
   $('dec').addEventListener('click', () => step(-1));
   $('inc').addEventListener('click', () => step(1));
@@ -507,6 +517,7 @@ function bind() {
     if (!state.extraOff.includes(v)) state.extraOff = [...state.extraOff, v].sort();
     $('extra-date').value = '';
     render();
+    engaged();
   });
   $('extra-list').addEventListener('click', (e) => {
     const b = e.target.closest('button[data-rm]');
@@ -531,6 +542,7 @@ function bind() {
       track('manual');
     }
     render();
+    engaged();
   });
 
   $('deals').addEventListener('click', (e) => {
@@ -542,6 +554,7 @@ function bind() {
     state.manual = [...new Set([...state.manual, ...d.leaveDates])].sort();
     track('deal-add');
     render();
+    engaged();
     toast(`${D.range(d.start, d.end)} 연휴를 넣었어요`);
   });
   $('reset-auto').addEventListener('click', () => {
@@ -606,7 +619,7 @@ function init() {
   }
   bind();
   render();
-  track(`plan/${state.period}/${state.strategy}`);
+  track(`view/${state.period}/${state.strategy}`);
 }
 
 init();
