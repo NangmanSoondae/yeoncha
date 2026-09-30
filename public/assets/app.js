@@ -1,10 +1,11 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301933';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301933';
-import { renderCard, canvasToBlob } from './card.js?v=202609301933';
-import { buildIcs } from './ics.js?v=202609301933';
-import * as D from './dates.js?v=202609301933';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301955';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301955';
+import { renderCard, canvasToBlob } from './card.js?v=202609301955';
+import { buildIcs } from './ics.js?v=202609301955';
+import * as D from './dates.js?v=202609301955';
 
-const SITE_URL = 'https://yeoncha.nangsoon.com/';
+// 대표 주소는 index.html의 canonical 한 곳에서만 관리
+const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || `${location.origin}/`;
 const MAX_BUDGET = 30;
 const TAIL_DAYS = 10; // 기간 끝 뒤 휴일(예: 12/25~1/3)까지 연휴로 이어 계산
 const $ = (id) => document.getElementById(id);
@@ -158,11 +159,12 @@ function renderResult() {
         : '이 조건으로는 만들 수 있는 연휴가 없어요';
     $('subline').textContent = `${p.label} 기준`;
   } else {
-    $('headline').innerHTML = `연차 <b>${leaveUsed}일</b>로 <b>${totalOff}일</b> 쉬어요`;
+    $('headline').innerHTML = PERIODS.stale ? '올해 공휴일 데이터를 준비 중이에요' : `연차 <b>${leaveUsed}일</b>로 <b>${totalOff}일</b> 쉬어요`;
     const parts = [`${p.label} 기준`, `연휴 ${breaks.length}번`, `가장 긴 연휴 ${longest}일`];
     const left = state.budget - leaveUsed;
     if (!state.manual && left > 0) parts.push(`남는 연차 ${left}일`);
     let sub = parts.join(' · ');
+    if (PERIODS.stale) sub = `⚠️ ${HOLIDAY_META.years[HOLIDAY_META.years.length - 1]}년 달력이에요(올해 공휴일 데이터 갱신 전). ` + sub;
     if (state.workType === 'small') sub += ' — 공휴일이 없는 주는 어느 주든 같아서, 날짜는 자유롭게 옮겨도 돼요.';
     $('subline').textContent = sub;
   }
@@ -579,16 +581,18 @@ function trackLanding() {
 // (GoatCounter count.js 가 localStorage 'skipgc' = 't' 이면 집계하지 않음)
 function handleStatsToggle() {
   if (location.hash !== '#toggle-goatcounter') return;
-  let excluded = false;
-  try {
-    excluded = localStorage.getItem('skipgc') !== 't';
-    if (excluded) localStorage.setItem('skipgc', 't');
-    else localStorage.removeItem('skipgc');
-  } catch {
-    /* 저장소를 못 쓰는 브라우저 */
-  }
   history.replaceState(null, '', location.pathname);
-  setTimeout(() => toast(excluded ? '이 브라우저의 방문은 이제 통계에서 빠져요' : '이 브라우저의 방문을 다시 통계에 넣어요'), 300);
+  let on = false;
+  try {
+    on = localStorage.getItem('skipgc') === 't';
+  } catch {
+    return;
+  }
+  // 남이 퍼뜨린 링크로 몰래 꺼지지 않도록 한 번 묻는다
+  if (!window.confirm(on ? '이 브라우저의 방문을 다시 통계에 넣을까요?' : '이 브라우저의 방문을 통계에서 뺄까요? (운영자용)')) return;
+  if (on) localStorage.removeItem('skipgc');
+  else localStorage.setItem('skipgc', 't');
+  setTimeout(() => toast(!on ? '이 브라우저의 방문은 이제 통계에서 빠져요' : '이 브라우저의 방문을 다시 통계에 넣어요'), 300);
 }
 
 function init() {
@@ -597,6 +601,9 @@ function init() {
   readUrl();
   const d = HOLIDAY_META.updated;
   $('data-note').textContent = `공휴일 데이터 기준일: ${d} (${HOLIDAY_META.years.join('·')}년, 월력요항·정부 발표 기준). 임시공휴일은 발표되면 반영해요.`;
+  if (PERIODS.stale) {
+    $('data-note').textContent += ' ⚠️ 올해 공휴일 데이터가 아직 반영되지 않아 지난 연도 달력을 보여주고 있어요.';
+  }
   bind();
   render();
   track(`plan/${state.period}/${state.strategy}`);

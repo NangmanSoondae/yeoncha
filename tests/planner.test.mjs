@@ -1,7 +1,7 @@
 // 추천 엔진 테스트 — 실행: node --test tests/
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from '../assets/planner.js';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from '../public/assets/planner.js';
 
 // 자체 fixture (실제 데이터 assets/holidays.js와 독립)
 const HOLIDAYS = {

@@ -1,0 +1,12 @@
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://gc.zgo.at/count.v5.js; style-src 'self' https://cdn.jsdelivr.net; font-src https://cdn.jsdelivr.net; img-src 'self' data: blob: https://yeoncha.goatcounter.com; connect-src 'self' https://yeoncha.goatcounter.com; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+
+https://yeoncha.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.yeoncha.pages.dev/*
+  X-Robots-Tag: noindex

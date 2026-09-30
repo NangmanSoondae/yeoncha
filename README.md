@@ -16,15 +16,17 @@
 ## 구조
 | 파일 | 역할 |
 |---|---|
-| `assets/planner.js` | 추천 엔진 — 예산 제약 가중 구간 스케줄링 DP (의존성 0) |
-| `assets/holidays.js` | 2026–2027 공휴일 데이터 (월력요항·정부 발표 기준, 출처 포함) |
-| `assets/app.js` | UI 상태·렌더링·URL 공유 |
-| `assets/card.js` / `assets/ics.js` | 공유 카드 PNG / iCalendar 내보내기 |
+| `public/` | **배포되는 사이트 전부** (Cloudflare Pages 빌드 출력 디렉터리) |
+| `public/_headers` | 보안 헤더·CSP(전 페이지 공통), pages.dev noindex |
+| `public/assets/planner.js` | 추천 엔진 — 예산 제약 가중 구간 스케줄링 DP (의존성 0) |
+| `public/assets/holidays.js` | 2026–2027 공휴일 데이터 (월력요항·정부 발표 기준, 출처 포함) |
+| `public/assets/app.js` | UI 상태·렌더링·URL 공유 |
+| `public/assets/card.js` / `public/assets/ics.js` | 공유 카드 PNG / iCalendar 내보내기 |
 | `tests/planner.test.mjs` | 엔진 테스트 (전수 탐색 대조 포함) |
 
 ## 개발
 ```bash
-python -m http.server 8123   # http://localhost:8123
+python -m http.server 8123 --directory public   # http://localhost:8123
 npm test                     # node --test
 ```
 
@@ -36,7 +38,8 @@ npm test                     # node --test
 - 색인 통보: 배포 후 `node tools/indexnow.mjs` (빙·네이버 IndexNow)
 
 ## 공휴일 데이터 갱신
-임시공휴일이 지정되면 `assets/holidays.js`에 `type: 'temporary'`로 추가하고 `HOLIDAY_META.updated`를 바꿉니다.
+- **현재 수록: 2026–2027년**(+ 연말 연휴 계산용 2028-01-01). 2028년 월력요항(2027년 6월경 발표)이 나오면 2028년을 추가하고 `HOLIDAY_META.years`에 넣어야 합니다. 데이터가 끝난 뒤 접속하면 화면에 「공휴일 데이터를 준비 중」 경고가 뜹니다.
+임시공휴일이 지정되면 `public/assets/holidays.js`에 `type: 'temporary'`로 추가하고 `HOLIDAY_META.updated`를 바꿉니다.
 
 ## 라이선스
 코드 © 2026 NangmanSoondae. 글꼴 Pretendard는 SIL Open Font License 1.1.
