@@ -1,5 +1,5 @@
 // 결과를 iCalendar(.ics) 파일로 — 구글·애플·아웃룩 캘린더에서 가져오기 가능
-import { addDays } from './dates.js?v=202609301748';
+import { addDays } from './dates.js?v=202609301754';
 
 const enc = new TextEncoder();
 
@@ -37,7 +37,7 @@ export function buildIcs(breaks, { url, md }) {
     const leaves = b.leaveDates.map(md).join(', ');
     lines.push(
       'BEGIN:VEVENT',
-      `UID:${ymd(b.start)}-${ymd(b.end)}-${b.leaveCount}@nangmansoondae.github.io`,
+      `UID:${ymd(b.start)}-${ymd(b.end)}-${b.leaveCount}@yeoncha.nangsoon.com`,
       `DTSTAMP:${stamp}`,
       `DTSTART;VALUE=DATE:${ymd(b.start)}`,
       `DTEND;VALUE=DATE:${ymd(addDays(b.end, 1))}`,

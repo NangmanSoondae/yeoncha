@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://nangmansoondae.github.io/yeoncha/sitemap.xml
+Sitemap: https://yeoncha.nangsoon.com/sitemap.xml

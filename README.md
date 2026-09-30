@@ -2,7 +2,8 @@
 
 남은 연차 일수만 넣으면 주말·공휴일·대체공휴일과 이어 붙여 가장 길게 쉬는 연차 조합을 찾아주는 무료 웹 도구입니다.
 
-- 라이브: https://nangmansoondae.github.io/yeoncha/
+- 라이브: https://yeoncha.nangsoon.com/
+- 호스팅: Cloudflare Pages(프로젝트 `yeoncha`, 예비 주소 yeoncha.pages.dev → 대표 주소로 이동). `main`에 push하면 자동 배포.
 - 서버·DB 없음. 모든 계산은 브라우저 안에서 하고, 입력값은 저장하지 않습니다(공유 링크 주소에만 담김).
 
 ## 기능
@@ -28,7 +29,7 @@ npm test                     # node --test
 ```
 
 ## 배포 전
-GitHub Pages는 정적 파일을 10분간 캐시합니다. 파일을 바꿨으면 `node tools/bump-version.mjs`로 `?v=` 버전을 올린 뒤 커밋하세요(HTML과 JS 버전이 어긋나지 않게).
+브라우저 캐시로 HTML과 JS 버전이 어긋나지 않게, 파일을 바꿨으면 `node tools/bump-version.mjs`로 `?v=` 버전을 올린 뒤 커밋하세요(HTML과 JS 버전이 어긋나지 않게).
 
 ## 공휴일 데이터 갱신
 임시공휴일이 지정되면 `assets/holidays.js`에 `type: 'temporary'`로 추가하고 `HOLIDAY_META.updated`를 바꿉니다.

@@ -1,10 +1,10 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301748';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301748';
-import { renderCard, canvasToBlob } from './card.js?v=202609301748';
-import { buildIcs } from './ics.js?v=202609301748';
-import * as D from './dates.js?v=202609301748';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202609301754';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202609301754';
+import { renderCard, canvasToBlob } from './card.js?v=202609301754';
+import { buildIcs } from './ics.js?v=202609301754';
+import * as D from './dates.js?v=202609301754';
 
-const SITE_URL = 'https://nangmansoondae.github.io/yeoncha/';
+const SITE_URL = 'https://yeoncha.nangsoon.com/';
 const MAX_BUDGET = 30;
 const TAIL_DAYS = 10; // 기간 끝 뒤 휴일(예: 12/25~1/3)까지 연휴로 이어 계산
 const $ = (id) => document.getElementById(id);
