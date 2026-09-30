@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>html, body { margin: 0; background: #333; } canvas { display: block; }</style>
+</head>
+<body>
+<script type="module">
+// 공유 카드 미리보기(개발용): ?n=3 이면 연휴 3개 샘플
+import { renderCard } from '../assets/card.js';
+const all = [
+  { start: '2026-10-03', end: '2026-10-11', length: 9, leaveCount: 3, holidayNames: ['개천절', '대체공휴일(개천절)', '한글날'] },
+  { start: '2026-12-24', end: '2026-12-27', length: 4, leaveCount: 1, holidayNames: ['성탄절'] },
+  { start: '2026-12-31', end: '2027-01-03', length: 4, leaveCount: 1, holidayNames: ['신정'] },
+  { start: '2026-11-13', end: '2026-11-15', length: 3, leaveCount: 1, holidayNames: [] },
+  { start: '2026-11-20', end: '2026-11-22', length: 3, leaveCount: 1, holidayNames: [] },
+  { start: '2026-11-27', end: '2026-11-29', length: 3, leaveCount: 1, holidayNames: [] },
+];
+const n = Number(new URLSearchParams(location.search).get('n') || 3);
+const breaks = all.slice(0, n);
+const c = await renderCard({
+  periodLabel: '2026 남은 연차',
+  leaveUsed: breaks.reduce((a, b) => a + b.leaveCount, 0),
+  totalOff: breaks.reduce((a, b) => a + b.length, 0),
+  breaks,
+  siteUrl: 'nangmansoondae.github.io/yeoncha',
+});
+document.body.appendChild(c);
+document.body.dataset.ready = '1';
+</script>
+</body>
+</html>
