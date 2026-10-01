@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+  html, body { margin: 0; }
+  body { width: 1080px; height: 1350px; overflow: hidden; font-family: "Pretendard Variable", sans-serif; background: linear-gradient(160deg, #12a06f, #0a6446); color: #fff; position: relative; word-break: keep-all; }
+  .blob { position: absolute; right: -140px; top: -140px; width: 560px; height: 560px; border-radius: 50%; background: rgba(255,255,255,.12); }
+  .top { position: absolute; left: 80px; top: 88px; font-size: 34px; font-weight: 700; color: rgba(255,255,255,.85); }
+  h1 { position: absolute; left: 80px; top: 150px; margin: 0; font-size: 88px; line-height: 1.16; letter-spacing: -0.03em; font-weight: 800; }
+  h1 em { font-style: normal; color: #d9ffe9; }
+  .panel { position: absolute; left: 60px; right: 60px; top: 430px; background: #fff; border-radius: 36px; padding: 40px 44px; color: #1c211d; }
+  .panel h2 { margin: 0 0 18px; font-size: 34px; }
+  .grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; }
+  .d { height: 76px; border-radius: 16px; display: grid; place-items: center; font-weight: 800; font-size: 30px; position: relative; }
+  .w { font-size: 24px; height: 40px; color: #5d665f; }
+  .h { color: #d93a3a; } .s { color: #2f6fd1; }
+  .b { background: #eaf7f0; } .l { background: #0f8a5f; color: #fff; }
+  .d small { position: absolute; bottom: 6px; font-size: 15px; font-weight: 700; color: #d93a3a; }
+  .l small { color: #d9ffe9; }
+  .opts { list-style: none; margin: 26px 0 0; padding: 0; display: grid; gap: 14px; }
+  .opts li { display: flex; justify-content: space-between; align-items: baseline; font-size: 32px; font-weight: 700; border-top: 2px solid #e6ebe7; padding-top: 14px; }
+  .opts li b { color: #0f8a5f; font-size: 38px; }
+  .opts li span.m { font-size: 26px; color: #5d665f; font-weight: 600; margin-left: 10px; }
+  .foot { position: absolute; left: 80px; bottom: 80px; }
+  .foot b { display: block; font-size: 40px; font-weight: 800; }
+  .foot span { font-size: 30px; color: rgba(255,255,255,.85); font-weight: 600; }
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .rows li { display: grid; grid-template-columns: 150px 1fr auto; align-items: center; gap: 18px; padding: 18px 0; border-top: 2px solid #e6ebe7; }
+  .rows li:first-child { border-top: 0; padding-top: 6px; }
+  .rows .k { font-size: 40px; font-weight: 800; color: #0f8a5f; }
+  .rows .lv { font-size: 30px; font-weight: 700; color: #1c211d; }
+  .rows .lv small { display: block; font-size: 25px; color: #5d665f; font-weight: 600; margin-top: 4px; }
+  .rows .r { font-size: 40px; font-weight: 800; text-align: right; }
+  .rows .r small { display: block; font-size: 25px; color: #5d665f; font-weight: 600; }
+  .total { margin-top: 14px; background: #0f8a5f; color: #fff; border-radius: 22px; padding: 22px 28px; display: flex; justify-content: space-between; align-items: baseline; font-size: 34px; font-weight: 800; }
+  .total b { font-size: 46px; color: #d9ffe9; }
+</style>
+</head>
+<body>
+  <div class="blob"></div>
+  <div class="top">연차각 · 2027 황금연휴</div>
+  <h1>연차 12일로<br><em>37일</em> 쉰다</h1>
+  <div class="panel">
+    <h2>2027년 긴 연휴 4번</h2>
+    <ul class="rows">
+      <li><span class="k">설</span><span class="lv">연차 3일<small>2/10~12</small></span><span class="r">9일<small>2/6~2/14</small></span></li>
+      <li><span class="k">5월</span><span class="lv">연차 3일<small>5/4 · 5/6 · 5/7</small></span><span class="r">9일<small>5/1~5/9</small></span></li>
+      <li><span class="k">추석</span><span class="lv">연차 2일<small>9/13 · 9/17</small></span><span class="r">9일<small>9/11~9/19</small></span></li>
+      <li><span class="k">10월</span><span class="lv">연차 4일<small>10/5~8</small></span><span class="r">10일<small>10/2~10/11</small></span></li>
+    </ul>
+    <div class="total"><span>연차 12일</span><b>37일 휴가</b></div>
+  </div>
+  <div class="foot"><b>내 연차 개수로 계산해 보기 →</b><span>yeoncha.nangsoon.com</span></div>
+</body>
+</html>
