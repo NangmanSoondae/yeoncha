@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610012116';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610012116';
-import { renderCard, canvasToBlob } from './card.js?v=202610012116';
-import { buildIcs } from './ics.js?v=202610012116';
-import * as D from './dates.js?v=202610012116';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610020816';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610020816';
+import { renderCard, canvasToBlob } from './card.js?v=202610020816';
+import { buildIcs } from './ics.js?v=202610020816';
+import * as D from './dates.js?v=202610020816';
 
 // 대표 주소는 index.html의 canonical 한 곳에서만 관리
 const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || `${location.origin}/`;

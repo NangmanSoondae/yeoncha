@@ -1,7 +1,8 @@
 // 추천 엔진 테스트 — 실행: node --test tests/
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from '../public/assets/planner.js';
+import { buildCalendar, planLeave, summarizeLeave, topDeals, holidayClusters, bestAroundCluster } from '../public/assets/planner.js';
+import { HOLIDAYS as REAL_HOLIDAYS } from '../public/assets/holidays.js';
 
 // 자체 fixture (실제 데이터 assets/holidays.js와 독립)
 const HOLIDAYS = {
@@ -23,6 +24,7 @@ function addDays(iso, n) {
 
 const dayAt = (days, date) => days.find((d) => d.date === date);
 const shape = (plan) => plan.breaks.map((b) => [b.start, b.end, b.length, b.leaveDates.join(',')]);
+const shape1 = (b) => [b.start, b.end, b.length, b.leaveDates.join(',')];
 const longest = (plan) => plan.breaks.reduce((m, b) => Math.max(m, b.length), 0);
 
 // 모든 Plan이 지켜야 하는 불변식
@@ -336,4 +338,64 @@ test('topDeals: 주말에 걸린 공휴일만 있는 덩어리는 딜이 아님 
   assert.equal(topDeals({ days: small }).length, 0, '5/1(토)~5/2(일)는 평범한 주말');
   const std = buildCalendar({ start: '2027-04-26', end: '2027-05-09', holidays: H });
   assert.ok(topDeals({ days: std }).some((b) => b.start === '2027-04-30' && b.end === '2027-05-03'), '대체공휴일이 있으면 딜');
+});
+
+test('holidayClusters·bestAroundCluster: 개천절 덩어리 연차 0~3일', () => {
+  const days = buildCalendar(Q4);
+  const clusters = holidayClusters({ days });
+  assert.deepEqual(
+    clusters.map((c) => [c.start, c.end, c.length]),
+    [
+      ['2026-10-03', '2026-10-05', 3],
+      ['2026-10-09', '2026-10-11', 3],
+      ['2026-12-25', '2026-12-27', 3],
+    ],
+  );
+  const rows = bestAroundCluster({ days, start: '2026-10-03', end: '2026-10-05', maxLeave: 3 });
+  assert.deepEqual(rows.map(shape1), [
+    ['2026-10-03', '2026-10-05', 3, ''],
+    ['2026-10-02', '2026-10-05', 4, '2026-10-02'], // 같은 4일이면 이른 날짜
+    ['2026-10-01', '2026-10-05', 5, '2026-10-01,2026-10-02'],
+    ['2026-10-03', '2026-10-11', 9, '2026-10-06,2026-10-07,2026-10-08'],
+  ]);
+  // 덩어리 가운데 날짜만 줘도 양옆 휴무를 합친다
+  assert.deepEqual(shape1(bestAroundCluster({ days, start: '2026-10-04', end: '2026-10-04', maxLeave: 0 })[0]), ['2026-10-03', '2026-10-05', 3, '']);
+  assert.throws(() => bestAroundCluster({ days, start: '2027-05-01', end: '2027-05-01' }), RangeError);
+});
+
+test('bestAroundCluster: 실제 2027 데이터에서 전수 탐색과 같은 길이, 연차 수·단조성·summarizeLeave 일치', () => {
+  const days = buildCalendar({ start: '2027-01-01', end: '2028-01-10', holidays: REAL_HOLIDAYS });
+  const n = days.length;
+  const clusters = holidayClusters({ days });
+  assert.ok(clusters.length >= 10, `2027 휴일 덩어리 ${clusters.length}개`);
+  for (const c of clusters) {
+    const cs = days.findIndex((d) => d.date === c.start);
+    const ce = days.findIndex((d) => d.date === c.end);
+    const rows = bestAroundCluster({ days, start: c.start, end: c.end, maxLeave: 4 });
+    assert.equal(rows.length, 5);
+    for (let k = 0; k <= 4; k++) {
+      // 전수 탐색: 덩어리를 품고 양끝 바깥이 근무일(또는 범위 끝)인 구간 중 연차 k 이하 최장
+      let bestLen = 0;
+      for (let s = 0; s <= cs; s++) {
+        if (s > 0 && days[s - 1].off) continue;
+        let cost = 0;
+        for (let i = s; i < ce; i++) if (!days[i].off) cost++;
+        for (let e = ce; e < n; e++) {
+          if (e > ce && !days[e].off) cost++;
+          if (cost > k) break;
+          if (e < n - 1 && days[e + 1].off) continue;
+          bestLen = Math.max(bestLen, e - s + 1);
+        }
+      }
+      const r = rows[k];
+      assert.equal(r.length, bestLen, `${c.start} 연차 ${k}일`);
+      assert.ok(r.leaveCount <= k);
+      if (k > 0) assert.ok(r.length >= rows[k - 1].length);
+      if (k > 0 && r.length === rows[k - 1].length) assert.deepEqual(r.leaveDates, rows[k - 1].leaveDates);
+      if (r.leaveCount > 0) {
+        const plan = summarizeLeave({ days, leaveDates: r.leaveDates });
+        assert.ok(plan.breaks.some((b) => b.start === r.start && b.end === r.end && b.length === r.length));
+      }
+    }
+  }
 });

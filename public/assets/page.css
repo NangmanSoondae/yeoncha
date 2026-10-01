@@ -1,0 +1,58 @@
+/* 연휴 랜딩 페이지(정적) — 색 토큰은 style.css와 같음 */
+:root {
+  --bg: #f6f7f4; --surface: #ffffff; --surface-2: #f0f2ee; --text: #1c211d; --muted: #5d665f; --line: #e1e5df;
+  --accent: #0f8a5f; --accent-strong: #0b6e4b; --accent-soft: #dff3e9; --break-bg: #eaf7f0; --holiday: #d93a3a; --sat: #2f6fd1;
+  --radius: 16px; color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111513; --surface: #1a1f1c; --surface-2: #232925; --text: #e8ece9; --muted: #9ba59e; --line: #2d3430;
+    --accent: #2fb07f; --accent-strong: #5fd6a6; --accent-soft: #173a2c; --break-bg: #15291f; --holiday: #ff7070; --sat: #7aa7ff;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111513; --surface: #1a1f1c; --surface-2: #232925; --text: #e8ece9; --muted: #9ba59e; --line: #2d3430;
+  --accent: #2fb07f; --accent-strong: #5fd6a6; --accent-soft: #173a2c; --break-bg: #15291f; --holiday: #ff7070; --sat: #7aa7ff;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.65 "Pretendard Variable", Pretendard, system-ui, sans-serif; word-break: keep-all; }
+a { color: var(--accent-strong); }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+.top { padding: 18px 0 6px; font-weight: 800; }
+.top a { color: var(--text); text-decoration: none; }
+.top a span { color: var(--accent); }
+.crumb { font-size: 14px; color: var(--muted); margin: 0 0 6px; }
+.crumb a { color: var(--muted); }
+h1 { font-size: clamp(26px, 6vw, 36px); line-height: 1.25; letter-spacing: -0.02em; margin: 6px 0 14px; }
+h2 { font-size: 21px; margin: 34px 0 12px; }
+.lead { font-size: 17px; }
+.answer { background: var(--accent-soft); border-radius: var(--radius); padding: 14px 18px; font-weight: 700; margin: 18px 0; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 6px 14px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 15px; }
+th, td { text-align: left; padding: 11px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th { font-size: 13px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+td.len { font-weight: 800; color: var(--accent-strong); white-space: nowrap; }
+td.n { white-space: nowrap; font-weight: 700; }
+tr.star td { background: var(--break-bg); }
+td a { white-space: nowrap; font-weight: 600; }
+.cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; padding: 10px 0; }
+.cal .w { font-size: 12px; color: var(--muted); }
+.cal .d { border-radius: 10px; padding: 6px 0 4px; font-weight: 700; font-size: 15px; line-height: 1.2; min-height: 46px; }
+.cal .d small { display: block; font-size: 10px; font-weight: 600; }
+.cal .sun, .cal .hol { color: var(--holiday); }
+.cal .sat { color: var(--sat); }
+.cal .br { background: var(--break-bg); }
+.cal .lv { background: var(--accent); color: #fff; }
+.cal .out { opacity: .35; }
+.cal .m { grid-column: 1 / -1; text-align: left; font-weight: 800; font-size: 14px; padding-top: 6px; }
+.cta { display: block; text-align: center; background: var(--accent); color: #fff; text-decoration: none; font-weight: 800; font-size: 17px; border-radius: 14px; padding: 15px; margin: 22px 0 8px; }
+.note { font-size: 14px; color: var(--muted); }
+.links { list-style: none; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 8px; }
+.links a { display: block; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; text-decoration: none; color: var(--text); font-weight: 600; font-size: 15px; }
+.links a[aria-current] { border-color: var(--accent); color: var(--accent-strong); }
+footer { margin: 40px 0 30px; font-size: 13px; color: var(--muted); }
+footer a { color: var(--muted); }

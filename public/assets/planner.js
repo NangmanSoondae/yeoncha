@@ -428,3 +428,66 @@ export function topDeals({ days, maxLeave = 5, limit = 12, blocked = [] } = {}) 
   }
   return out;
 }
+
+// ---------------------------------------------------------------------------
+// 5. 연휴별 표 (연휴 랜딩 페이지용)
+
+const noLeave = (days) => new Uint8Array(days.length);
+
+/**
+ * 평일에 걸린 공휴일·지정휴무가 든 연속 휴무 묶음(topDeals의 "휴일 덩어리")을 날짜순으로 돌려준다.
+ * @returns {Break[]} 연차 0일짜리 Break(leaveDates 빈 배열)
+ */
+export function holidayClusters({ days } = {}) {
+  assertDays(days);
+  const out = [];
+  for (let i = 0; i < days.length; ) {
+    if (!days[i].off) {
+      i++;
+      continue;
+    }
+    let j = i;
+    let special = false;
+    while (j < days.length && days[j].off) {
+      if ((days[j].reason === 'holiday' || days[j].reason === 'extra') && days[j].dow !== 0 && days[j].dow !== 6) special = true;
+      j++;
+    }
+    if (special) out.push(makeBreak(days, i, j - 1, noLeave(days)));
+    i = j;
+  }
+  return out;
+}
+
+/**
+ * 날짜 start~end(휴일 덩어리)를 통째로 품는 연휴 중 연차 0~maxLeave일 각각에서 가장 긴 것.
+ * 결과[c]는 "연차 c일 이하"의 최선이다: 더 길어지지 않으면 연차를 더 쓰지 않고 앞 결과를 그대로 둔다.
+ * 같은 길이면 이른 날짜. start~end 양옆에 이어진 휴무일은 덩어리에 합친다.
+ * @returns {Break[]} 길이 maxLeave + 1
+ */
+export function bestAroundCluster({ days, start, end, maxLeave = 4, blocked = [] } = {}) {
+  assertDays(days);
+  assertInt(maxLeave, 'maxLeave', 0);
+  let cs = days.findIndex((d) => d.date === start);
+  let ce = days.findIndex((d) => d.date === end);
+  if (cs < 0 || ce < cs) throw new RangeError(`start·end가 days 안의 날짜(start ≤ end)여야 합니다 (받은 값: ${start}~${end})`);
+  while (cs > 0 && days[cs - 1].off) cs--;
+  while (ce < days.length - 1 && days[ce + 1].off) ce++;
+
+  const best = new Array(maxLeave + 1).fill(null);
+  const { all } = enumerateIntervals(days, maxLeave, Infinity, dateSet(blocked, 'blocked'));
+  for (const iv of all) {
+    if (iv.s > cs || iv.e < ce) continue;
+    const cur = best[iv.cost];
+    if (!cur || iv.len > cur.len || (iv.len === cur.len && iv.s < cur.s)) best[iv.cost] = iv;
+  }
+
+  const out = [makeBreak(days, cs, ce, noLeave(days))];
+  let pick = { s: cs, e: ce, len: ce - cs + 1 };
+  for (let c = 1; c <= maxLeave; c++) {
+    if (best[c] && best[c].len > pick.len) pick = best[c];
+    const isLeave = noLeave(days);
+    for (let i = pick.s; i <= pick.e; i++) if (!days[i].off) isLeave[i] = 1;
+    out.push(makeBreak(days, pick.s, pick.e, isLeave));
+  }
+  return out;
+}
