@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610010852';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610010852';
-import { renderCard, canvasToBlob } from './card.js?v=202610010852';
-import { buildIcs } from './ics.js?v=202610010852';
-import * as D from './dates.js?v=202610010852';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610012116';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610012116';
+import { renderCard, canvasToBlob } from './card.js?v=202610012116';
+import { buildIcs } from './ics.js?v=202610012116';
+import * as D from './dates.js?v=202610012116';
 
 // 대표 주소는 index.html의 canonical 한 곳에서만 관리
 const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || `${location.origin}/`;
@@ -14,6 +14,7 @@ const $ = (id) => document.getElementById(id);
 function track(name, tries = 0) {
   try {
     const gc = window.goatcounter;
+    if (gc && gc.skip) return; // host.js가 걸러낸 링크 검사기
     if (gc && gc.count) gc.count({ path: `event/${name}`, title: name, event: true });
     else if (tries < 10) setTimeout(() => track(name, tries + 1), 500);
   } catch {
