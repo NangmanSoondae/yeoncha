@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>0일차 링크 시험 (내부용)</title>
+<link rel="stylesheet" href="./linktest.css">
+<script src="./linktest.js" defer></script>
+</head>
+<body>
+<main>
+  <h1>0일차 실기기 시험</h1>
+  <p class="lead">내부 시험용 페이지예요. 결과는 이 기기 화면에만 보이고 어디로도 보내지 않아요. 다 끝나면 맨 아래 「결과 전체 복사」로 PM에게 보내 주세요.</p>
+
+  <section class="box" aria-labelledby="t-arrive">
+    <h2 id="t-arrive">① 이 링크로 들어온 결과</h2>
+    <p id="arrive-big" class="big s-none">확인 중…</p>
+    <dl id="arrive-detail"></dl>
+    <h3>이 기기에서 지금까지 연 시험 링크</h3>
+    <ol id="arrive-history" class="log"></ol>
+  </section>
+
+  <section class="box" aria-labelledby="t-make">
+    <h2 id="t-make">② 긴 링크 만들기</h2>
+    <p class="hint">버튼을 누르면 이 페이지 주소 뒤에 # 과 가짜 데이터를 붙인 링크가 생겨요. 「링크 복사」나 「공유하기」로 카톡 「나와의 채팅」에 보낸 다음, 채팅방에서 그 링크를 눌러 열어 보세요. ①에 결과가 크게 나와요.</p>
+    <div class="row" id="len-buttons">
+      <button type="button" data-len="1000">1천 자</button>
+      <button type="button" data-len="2000">2천 자</button>
+      <button type="button" data-len="3000">3천 자</button>
+      <button type="button" data-len="5000">5천 자</button>
+      <button type="button" data-len="8000">8천 자</button>
+    </div>
+    <label class="check"><input type="checkbox" id="end-underscore"> 링크 끝을 밑줄(_)로 끝내기 — 메신저가 끝 글자를 떼는지 시험</label>
+    <p id="made-info" class="hint">아직 만든 링크가 없어요.</p>
+    <textarea id="made-link" rows="4" readonly aria-label="만든 링크"></textarea>
+    <div class="row">
+      <button type="button" id="copy-link" class="primary" disabled>링크 복사</button>
+      <button type="button" id="share-link" disabled>공유하기</button>
+      <a id="open-link" class="btn" href="#">이 창에서 바로 열기</a>
+    </div>
+    <p id="make-log" class="hint"></p>
+  </section>
+
+  <section class="box" aria-labelledby="t-img">
+    <h2 id="t-img">③ 이미지 저장 시험</h2>
+    <p class="hint">작은 상장 이미지를 이 기기에서 그렸어요. 버튼마다 저장 방식이 달라요. 시도한 뒤 「저장됐어요 / 안 됐어요」를 눌러 결과를 남겨 주세요.</p>
+    <img id="img-thumb" class="thumb" alt="시험용 상장 이미지 미리보기">
+    <div class="row">
+      <button type="button" id="save-auto" class="primary">이미지 저장 (연차각 방식)</button>
+      <button type="button" id="save-share">공유창으로 보내기</button>
+      <button type="button" id="save-download">파일로 내려받기</button>
+      <button type="button" id="save-show">이미지 띄우기 (길게 눌러 저장)</button>
+    </div>
+    <div class="row">
+      <span class="hint" id="save-last">방금 시도: 없음</span>
+      <button type="button" id="save-yes" class="small">저장됐어요</button>
+      <button type="button" id="save-no" class="small">안 됐어요</button>
+    </div>
+    <ol id="save-log" class="log"></ol>
+  </section>
+
+  <section class="box" aria-labelledby="t-store">
+    <h2 id="t-store">④ 저장소 시험</h2>
+    <dl id="storage"></dl>
+    <div class="row">
+      <button type="button" id="store-clear" class="small">이 페이지 저장 기록 지우기</button>
+    </div>
+  </section>
+
+  <section class="box" aria-labelledby="t-caps">
+    <h2 id="t-caps">⑤ 브라우저 기능</h2>
+    <dl id="caps"></dl>
+  </section>
+
+  <section class="box" aria-labelledby="t-ua">
+    <h2 id="t-ua">⑥ 이 기기 정보 (userAgent)</h2>
+    <p id="ua" class="mono"></p>
+    <dl id="env"></dl>
+  </section>
+
+  <section class="box" aria-labelledby="t-report">
+    <h2 id="t-report">결과 보내기</h2>
+    <p class="hint">①~⑥ 내용을 글로 복사해요. 카톡 등으로 PM에게 붙여 넣어 주세요. 이름·연락처 같은 개인정보는 들어가지 않아요.</p>
+    <button type="button" id="copy-report" class="primary">결과 전체 복사</button>
+  </section>
+</main>
+
+<dialog id="img-dialog" aria-label="시험 이미지">
+  <img id="img-preview" alt="시험용 상장 이미지">
+  <p class="hint">이미지를 길게 눌러 「사진에 저장」 또는 「이미지 저장」을 골라 보세요.</p>
+  <button type="button" id="img-close">닫기</button>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
