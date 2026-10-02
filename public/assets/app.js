@@ -1,8 +1,8 @@
-import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610020816';
-import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610020816';
-import { renderCard, canvasToBlob } from './card.js?v=202610020816';
-import { buildIcs } from './ics.js?v=202610020816';
-import * as D from './dates.js?v=202610020816';
+import { HOLIDAYS, HOLIDAY_META } from './holidays.js?v=202610021003';
+import { buildCalendar, planLeave, summarizeLeave, topDeals } from './planner.js?v=202610021003';
+import { renderCard, canvasToBlob } from './card.js?v=202610021003';
+import { buildIcs } from './ics.js?v=202610021003';
+import * as D from './dates.js?v=202610021003';
 
 // 대표 주소는 index.html의 canonical 한 곳에서만 관리
 const SITE_URL = document.querySelector('link[rel="canonical"]')?.href || `${location.origin}/`;
@@ -61,7 +61,10 @@ const period = () => PERIODS.find((p) => p.id === state.period) || PERIODS[0];
 // ---------- URL <-> 상태 ----------
 function readUrl() {
   const q = new URLSearchParams(location.hash.length > 1 ? location.hash.slice(1) : location.search);
-  if (PERIODS.some((p) => p.id === q.get('p'))) state.period = q.get('p');
+  // 해가 바뀌면 「2027년 전체(2027)」가 「2027년 남은 기간(2027r)」으로 바뀐다 → 연휴 랜딩의 옛 링크를 이어 받는다
+  const pid = q.get('p');
+  const pick = [pid, /^[0-9]{4}$/.test(pid || '') ? `${pid}r` : null].find((id) => id && PERIODS.some((p) => p.id === id));
+  if (pick) state.period = pick;
   const n = Number(q.get('n'));
   if (Number.isInteger(n) && n >= 0 && n <= MAX_BUDGET && q.has('n')) state.budget = n;
   if (['standard', 'small'].includes(q.get('w'))) state.workType = q.get('w');
